@@ -1,0 +1,43 @@
+{
+   "app": {
+      "display_mode": "standalone",
+      "icon_color": "#DD3337",
+      "launch": {
+         "web_url": "https://stadia.google.com/?lfhs=2"
+      },
+      "linked_icons": [ {
+         "size": 128,
+         "url": "https://ssl.gstatic.com/stadia/gamers/assets/app-icon-v2-128.png"
+      }, {
+         "size": 192,
+         "url": "https://ssl.gstatic.com/stadia/gamers/assets/app-icon-v2-192.png"
+      }, {
+         "size": 256,
+         "url": "https://ssl.gstatic.com/stadia/gamers/assets/app-icon-v2-256.png"
+      }, {
+         "size": 512,
+         "url": "https://ssl.gstatic.com/stadia/gamers/assets/app-icon-v2-512.png"
+      } ],
+      "theme_color": "rgba(32,33,36,1)"
+   },
+   "description": "Get instant access to Stadia and a collection of games with a Stadia Pro free trial now.",
+   "icons": {
+      "128": "icons/128.png",
+      "192": "icons/192.png",
+      "256": "icons/256.png",
+      "32": "icons/32.png",
+      "48": "icons/48.png",
+      "512": "icons/512.png",
+      "64": "icons/64.png",
+      "96": "icons/96.png"
+   },
+   "key": "9arZotoxTDWuJ75X0dnzalhkIXnalg6olILSZS8Ir8I=",
+   "name": "Stadia",
+   "url_handlers": {
+      "scope": {
+         "matches": [ "https://stadia.google.com/*" ],
+         "title": "Stadia"
+      }
+   },
+   "version": "2021.1.29.42628"
+}

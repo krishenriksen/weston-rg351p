@@ -1,0 +1,24 @@
+{
+   "app": {
+      "display_mode": "browser",
+      "icon_color": "#FED8A2",
+      "launch": {
+         "web_url": "https://www.amazon.com/luna/landing-page"
+      },
+      "linked_icons": [  ]
+   },
+   "description": "Introducing Luna, Amazon’s cloud gaming service where it’s easy to play great games on devices you already own. No waiting for lengthy downloads—just play.",
+   "icons": {
+      "128": "icons/128.png",
+      "16": "icons/16.png",
+      "24": "icons/24.png",
+      "256": "icons/256.png",
+      "32": "icons/32.png",
+      "48": "icons/48.png",
+      "64": "icons/64.png",
+      "96": "icons/96.png"
+   },
+   "key": "6M+gQ3KrQ7WmbG9tKJf90B9zBPkM5V4yIVavLkfqwSY=",
+   "name": "Amazon Luna – Cloud Gaming Service",
+   "version": "2021.1.29.42649"
+}

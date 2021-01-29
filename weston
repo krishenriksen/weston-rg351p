@@ -1,0 +1,26 @@
+#!/bin/bash
+sudo chmod 666 /dev/tty1
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+sudo ln -sf "$DIR/libgbm.so.1" "/usr/local/lib/aarch64-linux-gnu/libgbm.so.1"
+
+sudo weston-launch --tty=/dev/tty1 --user=ark -- --use-pixman &
+sudo ./AnberPorts-Keyboard-Mouse/oga_controls &
+
+if [ "$1" = "geforcenow" ]; then
+  URL="https://play.geforcenow.com/"
+  APP_ID="ohjkhoahgahjfafnjibnmddfnkpokepg"
+elif [ "$1" = "stadia" ]; then
+  URL="https://stadia.google.com/"
+  APP_ID="pnkcfpnngfokcnnijgkllghjlhkailce"
+elif [ "$1" = "luna" ]; then
+  URL="https://www.amazon.com/luna/landing-page"
+  APP_ID="kdgeenlcejedkecgdjeinohplmajhibp"
+fi
+
+DISPLAY=:0 LD_LIBRARY_PATH="$DIR/chromium" "$DIR/chromium/chromium" --user-data-dir="$DIR/chromium/chrome" --profile-directory=Default --ignore-gpu-blocklist --disable-infobars --disable-session-crashed-bubble --no-first-run --enable-features=UseOzonePlatform --ozone-platform=wayland --enable-gpu-rasterization --use-gl=egl --app-id="$APP_ID" --user-agent="Mozilla/5.0 (X11; CrOS aarch64 13099.85.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.110 Safari/537.36"
+
+pgrep -f weston | sudo xargs kill
+pgrep -f oga_controls | sudo xargs kill
+
+sudo ln -sf /usr/local/lib/aarch64-linux-gnu/libgbm.so.1.0.0 /usr/local/lib/aarch64-linux-gnu/libgbm.so.1

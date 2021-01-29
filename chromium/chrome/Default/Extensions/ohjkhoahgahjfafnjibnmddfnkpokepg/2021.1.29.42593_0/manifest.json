@@ -1,0 +1,23 @@
+{
+   "app": {
+      "display_mode": "browser",
+      "icon_color": "#74B700",
+      "launch": {
+         "web_url": "https://www.nvidia.com/en-us/geforce-now/memberships/?jso=eyJQbHQiOiJicm93c2VyIn0="
+      },
+      "linked_icons": [  ]
+   },
+   "description": "Activate your GeForce NOW membership account to get standard access.\u003Cbr/>",
+   "icons": {
+      "128": "icons/128.png",
+      "16": "icons/16.png",
+      "256": "icons/256.png",
+      "32": "icons/32.png",
+      "48": "icons/48.png",
+      "64": "icons/64.png",
+      "96": "icons/96.png"
+   },
+   "key": "/rwFQU+sxehYbyIRtwB4ZPwRWAHfpSm60AMG/gFYteU=",
+   "name": "NVIDIA GeForce NOW",
+   "version": "2021.1.29.42593"
+}
