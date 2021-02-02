@@ -88,6 +88,9 @@ void handle_event(int type, int code, int value) {
 		}
 		else if (code == select && value == 1) { // select
 			system("pgrep -f chromium | sudo xargs kill");
+			system("pgrep -f weston | sudo xargs kill");
+			system("ln -sf /usr/local/lib/aarch64-linux-gnu/libgbm.so.1.0.0 /usr/local/lib/aarch64-linux-gnu/libgbm.so.1");
+			exit(0);
 		}
 	}
 
