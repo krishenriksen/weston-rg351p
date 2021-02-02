@@ -1,8 +1,0 @@
-2021/02/02-15:01:46.410 463 Reusing MANIFEST /home/ark/roms/ports/weston/chromium/chrome/Default/IndexedDB/https_stadia.google.com_0.indexeddb.leveldb/MANIFEST-000001
-2021/02/02-15:01:46.411 463 Recovering log #3
-2021/02/02-15:01:46.413 463 Level-0 table #3: started
-2021/02/02-15:01:46.420 463 Level-0 table #3: 4261 bytes OK
-2021/02/02-15:01:46.421 463 Recovering log #4
-2021/02/02-15:01:46.422 463 Reusing old log /home/ark/roms/ports/weston/chromium/chrome/Default/IndexedDB/https_stadia.google.com_0.indexeddb.leveldb/000004.log 
-2021/02/02-15:01:46.427 463 Delete type=0 #3
-2021/02/02-15:01:46.427 463 Delete type=2 #5
