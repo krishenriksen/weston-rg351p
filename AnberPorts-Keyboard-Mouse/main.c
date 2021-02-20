@@ -74,16 +74,12 @@ void emit(int type, int code, int val) {
 
 void handle_event(int type, int code, int value) {
 	if (type == 1) {
-		if (code == r1 && value == 1) { // right mouse click
-			emit(EV_KEY, BTN_RIGHT, 1);
-			emit(EV_SYN, SYN_REPORT, 0);
-			emit(EV_KEY, BTN_RIGHT, 0);
-			emit(EV_SYN, SYN_REPORT, 0);
-		}
-		else if (code == l1 && value == 1) { // left mouse click
+		if (code == a && (value == 1 || value == 2)) { // left mouse click
 			emit(EV_KEY, BTN_LEFT, 1);
 			emit(EV_SYN, SYN_REPORT, 0);
-			emit(EV_KEY, BTN_LEFT, 0);
+		}
+		else if (code == b && (value == 1 || value == 2)) { // right mouse click
+			emit(EV_KEY, BTN_RIGHT, 1);
 			emit(EV_SYN, SYN_REPORT, 0);
 		}
 		else if (code == select && value == 1) { // select
@@ -92,25 +88,62 @@ void handle_event(int type, int code, int value) {
 			system("ln -sf /usr/local/lib/aarch64-linux-gnu/libgbm.so.1.0.0 /usr/local/lib/aarch64-linux-gnu/libgbm.so.1");
 			exit(0);
 		}
+		else {
+			// reset press down
+			emit(EV_KEY, BTN_LEFT, 0);
+			emit(EV_SYN, SYN_REPORT, 0);
+
+			emit(EV_KEY, BTN_RIGHT, 0);
+			emit(EV_SYN, SYN_REPORT, 0);
+		}
 	}
 
 	// d-pad
 	if (type == 3) {
 		if (code == up && value == -1) {
-			emit(EV_REL, REL_Y, -10);
+			emit(EV_REL, REL_Y, -15);
 			emit(EV_SYN, SYN_REPORT, 0);
 		}
-		else if (code == down && value == 1) {
-			emit(EV_REL, REL_Y, 10);
+
+		if (code == down && value == 1) {
+			emit(EV_REL, REL_Y, 15);
+			emit(EV_SYN, SYN_REPORT, 0);
+
+		}
+
+		if (code == left && value == -1) {
+			emit(EV_REL, REL_X, -15);
 			emit(EV_SYN, SYN_REPORT, 0);
 		}
-		else if (code == left && value == -1) {
-			emit(EV_REL, REL_X, -10);
+
+		if (code == right && value == 1) {
+			emit(EV_REL, REL_X, 15);
 			emit(EV_SYN, SYN_REPORT, 0);
 		}
-		else if (code == right && value == 1) {
-			emit(EV_REL, REL_X, 10);
-			emit(EV_SYN, SYN_REPORT, 0);
+	}
+
+	if (type == 3) {
+		if (code == 3) { // up/down
+			if (value > 2100) {
+				emit(EV_REL, REL_Y, -1);
+				emit(EV_SYN, SYN_REPORT, 0);
+			}
+
+			if (value > 0 && value < 1900) {
+				emit(EV_REL, REL_Y, 1);
+				emit(EV_SYN, SYN_REPORT, 0);
+			}
+		}
+		else if (code == 2) { // left/right
+			if (value > 2100) {
+				emit(EV_REL, REL_X, -1);
+				emit(EV_SYN, SYN_REPORT, 0);
+			}
+
+			if (value > 0 && value < 1900) {
+				emit(EV_REL, REL_X, 1);
+				emit(EV_SYN, SYN_REPORT, 0);
+			}
 		}
 	}
 }
@@ -127,7 +160,7 @@ int main () {
 	// Intialize the uInput device to NULL
 	memset(&uidev, 0, sizeof(uidev));
 
-	strncpy(uidev.name, "AnberPorts Weston Keyboard/Mouse", UINPUT_MAX_NAME_SIZE);
+	strncpy(uidev.name, "AnberPorts Keyboard/Mouse", UINPUT_MAX_NAME_SIZE);
 	uidev.id.version = 1;
 	uidev.id.bustype = BUS_USB;
 	uidev.id.vendor = 0x1234; /* sample vendor */
@@ -141,7 +174,6 @@ int main () {
 	ioctl(uinp_fd, UI_SET_EVBIT, EV_KEY);
 
 	/* enable mouse button left and relative events */
-	ioctl(uinp_fd, UI_SET_EVBIT, EV_KEY);
 	ioctl(uinp_fd, UI_SET_KEYBIT, BTN_LEFT);
 	ioctl(uinp_fd, UI_SET_KEYBIT, BTN_RIGHT);
 
@@ -166,8 +198,6 @@ int main () {
 		if (rc_joypad == LIBEVDEV_READ_STATUS_SUCCESS) {
 			handle_event(ev_joypad.type, ev_joypad.code, ev_joypad.value);
 		}
-
-		usleep(100);
 	} while (rc_joypad == LIBEVDEV_READ_STATUS_SYNC || rc_joypad == LIBEVDEV_READ_STATUS_SUCCESS || rc_joypad == -EAGAIN);
 
 	libevdev_free(dev_joypad);
