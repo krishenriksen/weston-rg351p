@@ -74,18 +74,16 @@ void emit(int type, int code, int val) {
 
 void handle_event(int type, int code, int value) {
 	if (type == 1) {
-		if (code == a && (value == 1 || value == 2)) { // left mouse click
+		if (code == l2 && (value == 1 || value == 2)) { // left mouse click
 			emit(EV_KEY, BTN_LEFT, 1);
 			emit(EV_SYN, SYN_REPORT, 0);
 		}
-		else if (code == b && (value == 1 || value == 2)) { // right mouse click
+		else if (code == r2 && (value == 1 || value == 2)) { // right mouse click
 			emit(EV_KEY, BTN_RIGHT, 1);
 			emit(EV_SYN, SYN_REPORT, 0);
 		}
 		else if (code == select && value == 1) { // select
-			system("pgrep -f chromium | sudo xargs kill");
-			system("pgrep -f weston | sudo xargs kill");
-			system("ln -sf /usr/local/lib/aarch64-linux-gnu/libgbm.so.1.0.0 /usr/local/lib/aarch64-linux-gnu/libgbm.so.1");
+			system("/roms/ports/weston/weston reset");
 			exit(0);
 		}
 		else {
@@ -101,23 +99,39 @@ void handle_event(int type, int code, int value) {
 	// d-pad
 	if (type == 3) {
 		if (code == up && value == -1) {
-			emit(EV_REL, REL_Y, -15);
+			emit(EV_KEY, KEY_UP, 1);
+			emit(EV_SYN, SYN_REPORT, 0);
+		}
+		else if (code == up && value == 0) {
+			emit(EV_KEY, KEY_UP, 0);
 			emit(EV_SYN, SYN_REPORT, 0);
 		}
 
 		if (code == down && value == 1) {
-			emit(EV_REL, REL_Y, 15);
+			emit(EV_KEY, KEY_DOWN, 1);
 			emit(EV_SYN, SYN_REPORT, 0);
 
 		}
+		else if (code == down && value == 0) {
+			emit(EV_KEY, KEY_DOWN, 0);
+			emit(EV_SYN, SYN_REPORT, 0);
+		}
 
 		if (code == left && value == -1) {
-			emit(EV_REL, REL_X, -15);
+			emit(EV_KEY, KEY_LEFT, 1);
+			emit(EV_SYN, SYN_REPORT, 0);
+		}
+		else if (code == left && value == 0) {
+			emit(EV_KEY, KEY_LEFT, 0);
 			emit(EV_SYN, SYN_REPORT, 0);
 		}
 
 		if (code == right && value == 1) {
-			emit(EV_REL, REL_X, 15);
+			emit(EV_KEY, KEY_RIGHT, 1);
+			emit(EV_SYN, SYN_REPORT, 0);
+		}
+		else if (code == right && value == 0) {
+			emit(EV_KEY, KEY_RIGHT, 0);
 			emit(EV_SYN, SYN_REPORT, 0);
 		}
 	}
